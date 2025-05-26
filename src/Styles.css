@@ -1,0 +1,26 @@
+.logo-img {
+    height: 80px;
+    width: auto;
+  }
+
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+  }
+  .full-width-carousel {
+    width: 100vw;
+  }
+  .carousel-item img {
+    object-fit: cover;
+    height: 70vh; /* Opcional: para que ocupe toda la altura de la ventana */
+  }
+  .full-width-carousel {
+    margin-top:6rem; /* Ajusta según el alto de tu navbar */
+  }
+#footer  
+  footer a:hover {
+    text-decoration: underline;
+    color: #ccc;
+  }
+  
