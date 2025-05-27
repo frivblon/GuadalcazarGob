@@ -12,12 +12,12 @@ function NavBarComponent() {
         <Navbar.Brand href="#home" className="d-flex align-items-center">
           <img
             src="/images/logoGuad2.png"
-            width="30"
-            height="30"
+            width="60"
+            height="60"
             className="d-inline-block align-top me-2"
             alt="Logo Guadalcázar"
           />
-          Guadalcázar
+        {/*  Guadalcázar */}
         </Navbar.Brand>
 
         {/* Botón para colapsar en móvil */}
