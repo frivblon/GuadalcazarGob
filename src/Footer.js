@@ -15,12 +15,12 @@ function Footer() {
             </p>
           </Col>
           <Col md={3}>
-            <h5>Enlaces útiles</h5>
+            <h5>Redes Sociales</h5>
             <ul className="list-unstyled">
               <li><a href="#inicio" className="text-light">Inicio</a></li>
-              <li><a href="#historia" className="text-light">Historia</a></li>
-              <li><a href="#galeria" className="text-light">Galería</a></li>
-              <li><a href="#contacto" className="text-light">Contacto</a></li>
+              <li><a href="#Facebook" className="text-light">Facebook</a></li>
+              <li><a href="#Instagram" className="text-light">Instagram</a></li>
+              <li><a href="#TikTok" className="text-light">TikTok</a></li>
             </ul>
           </Col>
           <Col md={3}>

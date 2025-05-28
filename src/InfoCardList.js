@@ -1,11 +1,16 @@
-// src/components/InfoCardList.jsx
+// InfoCardList.jsx
 import React from 'react';
-import  InfoCard from './infocard';
+import InfoCardItem from './InfoCardItem';
 
-const InfoCardList = ({ items }) => (
-  <div className="card-grid">
+const InfoCardList = ({ items, onDelete, onEdit }) => (
+  <div className="d-flex flex-wrap justify-content-center">
     {items.map((item) => (
-      <InfoCard key={item.id} {...item} />
+      <InfoCardItem
+        key={item.id}
+        {...item}
+        onDelete={onDelete}
+        onEdit={onEdit}
+      />
     ))}
   </div>
 );

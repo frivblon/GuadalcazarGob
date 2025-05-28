@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles.css';
 import NavBar from './navBar';
 import Footer from './Footer';
-import InfoCard from './infocard';
+import InfoCard from './InfoCard';
 import CarouselComponent from './CarouselComponent';
 
 function App() {
