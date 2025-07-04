@@ -7,6 +7,8 @@
   html {
     margin: 0;
     padding: 0;
+     min-height: 100vh;
+  height: 100%;
   }
   .full-width-carousel {
     width: 100vw;
@@ -21,6 +23,6 @@
 #footer  
   footer a:hover {
     text-decoration: underline;
-    color: #ccc;
+    color: #000000;
   }
   

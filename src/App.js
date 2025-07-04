@@ -3,11 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { HashRouter as Router, Route, Routes } from "react-router-dom"; // Cambié Switch por Routes
 import './Styles.css';
 import Inicio from './Inicio';
-import NavBar from './navBar';
 import Prueba from './Prueba';
-import Footer from './Footer';
-import InfoCard from './InfoCard';
-import CarouselComponent from './CarouselComponent';
+import Login from './Login';
 
 function App() {
   return (
@@ -17,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Inicio />} /> {/* Ruta para la página principal*/}
           <Route path="/Prueba" element={<Prueba />} /> {/* Ruta para la página "Prueba" */}
+           <Route path="/Login.js" element={<Login />} /> {/* Ruta para la página "Prueba" */}
            </Routes>
       </div>
     </Router>
