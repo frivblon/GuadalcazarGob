@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './login.css';
+import './auth.css'; // antes login.css o register.css
 import Footer from './Footer';
 import NavBarComponent from './navBar';
 
