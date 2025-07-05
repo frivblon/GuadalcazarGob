@@ -34,6 +34,9 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+              <div style={{ textAlign: 'center' }}>
+          <a href="#/Register.js">Registrarse</a>
+          </div>
           <button type="submit">Entrar</button>
         </form>
       </main>

@@ -3,9 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { HashRouter as Router, Route, Routes } from "react-router-dom"; // Cambié Switch por Routes
 import './Styles.css';
 import Inicio from './Inicio';
-//import Prueba from './Prueba';
 import Login from './Login';
 import Register from './Register';
+
 function App() {
   return (
     <Router>

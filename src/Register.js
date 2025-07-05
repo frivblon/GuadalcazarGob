@@ -69,7 +69,9 @@ function Register() {
           />
 
           {error && <p className="error-message">{error}</p>}
-
+          <div style={{ textAlign: 'center' }}>
+  <a href="#/Login.js">Iniciar Sesión</a>
+</div>
           <button type="submit">Registrarse</button>
         </form>
       </main>
