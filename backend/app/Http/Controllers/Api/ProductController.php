@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Consulta todos los datos en la base de datos
      */
     public function index()
     {
@@ -18,7 +18,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Crea un nuevo registro en la base de datos
      */
     public function store(Request $request)
     {
@@ -41,13 +41,14 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $product = product::findOrFail($request->id);
+        $product = Product::findOrFail($request->id);
         $product->description = $request->description;
         $product->price = $request->price;
         $product->stock = $request->stock;
-        //Misma historia que en el anterior el codigo lo puso pero no se pa que sirva jeje $product->save();
+        $product->save();
+        return $product;
     }
 
     /**
