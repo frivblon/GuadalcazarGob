@@ -18,8 +18,8 @@ function Footer() {
             <h5>Redes Sociales</h5>
             <ul className="list-unstyled">
               <li><a href="#inicio" className="text-light">Inicio</a></li>
-              <li><a href="#Facebook" className="text-light">Facebook</a></li>
-              <li><a href="#Instagram" className="text-light">Instagram</a></li>
+              <li><a href="https://www.facebook.com/hayuntamiento.guadalcazarslp" className="text-light">Facebook</a></li>
+              <li><a href="https://www.instagram.com/ayuntamientoguadalcazar/" className="text-light">Instagram</a></li>
               <li><a href="#TikTok" className="text-light">TikTok</a></li>
             </ul>
           </Col>

@@ -27,7 +27,7 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->stock = $request->stock;
         $product->save();
-       // esto lo creo el codigo pero igual lo comento por si algo falla pues ya lo pongo jaja return $product;
+         return $product;
     }
     /**
      * Display the specified resource.
