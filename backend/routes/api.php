@@ -39,3 +39,6 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/test', function () {
     return response()->json(['message' => 'API is working']);
 });
+
+  // Rutas para gestionar las infocards
+    Route::apiResource('infocards', InfocardController::class);

@@ -11,7 +11,7 @@ const InfoCardItem = ({ id, title, description, imageUrl, onDelete, onEdit }) =>
     onEdit(id, {
       title: editTitle,
       description: editDescription,
-      imageUrl: editImageUrl,
+      image_url: editImageUrl, // ⬅️ Asegúrate de que el nombre del campo coincida con el backend (snake_case)
     });
     setIsEditing(false);
   };

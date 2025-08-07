@@ -11,10 +11,9 @@ const InfoCardForm = ({ onAdd }) => {
     if (!title || !description || !imageUrl) return;
 
     onAdd({
-      id: Date.now(),
       title,
       description,
-      imageUrl,
+      image_url: imageUrl, // ⬅️ Asegúrate de que el nombre del campo coincida con el backend (snake_case)
     });
 
     // Limpia el formulario
@@ -31,18 +30,21 @@ const InfoCardForm = ({ onAdd }) => {
         placeholder="Título"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        required
       />
       <input
         type="text"
         placeholder="Descripción"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        required
       />
       <input
         type="text"
         placeholder="URL de imagen"
         value={imageUrl}
         onChange={(e) => setImageUrl(e.target.value)}
+        required
       />
       <button type="submit">Agregar</button>
     </form>

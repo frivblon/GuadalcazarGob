@@ -1,70 +1,69 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './auth.css';
-import Footer from './Footer';
-import NavBarComponent from './navBar';
+import { useNavigate } from 'react-router-dom'; // ⬅️ Importamos useNavigate para la redirección
+import { useAuth } from './AuthContext'; // ⬅️ Importamos useAuth para el contexto de autenticación
+
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate(); // ⬅️ Inicializamos el hook de navegación
+  const { login } = useAuth(); // ⬅️ Obtenemos la función 'login' del contexto
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
-    try {
-      // ➡️ 1. Petición para obtener la cookie CSRF.
+    
+   try {
+      // 1. Petición para obtener la cookie CSRF.
       // Laravel establecerá la cookie de sesión en el navegador.
       await axios.get('/sanctum/csrf-cookie');
 
-      // ➡️ 2. Hacer la llamada POST a la API de Laravel
+      // 2. Hacer la llamada POST a la API de Laravel
       // Gracias a la configuración en App.js, las credenciales (cookies) se enviarán automáticamente.
       const response = await axios.post('/api/login', {
         email: email,
         password: password,
       });
 
-      // ➡️ 3. Manejar la respuesta del servidor
+      // 3. Manejar la respuesta del servidor
       // En el flujo de Sanctum, un login exitoso devuelve 204 No Content.
       if (response.status === 204) {
         console.log('Inicio de sesión exitoso!');
-        alert('¡Bienvenido! Has iniciado sesión correctamente.');
-        
-        // Opcional: Ahora que estás autenticado, puedes obtener los datos del usuario.
-        // La cookie de sesión se enviará automáticamente con esta petición.
-        try {
-          const userResponse = await axios.get('/api/user');
-          console.log('Datos del usuario:', userResponse.data);
-          // Aquí puedes guardar los datos del usuario en el estado global (ej. Redux, Context)
-        } catch (userErr) {
-          console.error('Error al obtener los datos del usuario:', userErr);
-        }
+        alert('¡Bienvenido! Has iniciado sesión correctamente.'); // Puedes reemplazar esto por un modal más amigable
+
+        // ⬅️ Actualizamos el estado global de autenticación a 'true'
+        login(); 
+
+        // ⬅️ Redirigimos al usuario al componente 'AgregarInfoCards'
+        navigate('/agregar-infocards'); 
         
       } else {
-        // En caso de que el servidor devuelva otro código de éxito
+        // En caso de que el servidor devuelva otro código de éxito inesperado
         console.log('Respuesta del servidor inesperada:', response);
       }
     } catch (err) {
-      // ➡️ 4. Manejar los errores de la llamada
+      // 4. Manejar los errores de la llamada
       if (err.response) {
         console.error('Error de autenticación:', err.response.data);
-        // El error 422 es por credenciales incorrectas.
+        // El error 422 es por credenciales incorrectas o validación fallida.
         if (err.response.status === 422 && err.response.data.message) {
           setError(err.response.data.message);
         } else {
           setError('Credenciales incorrectas. Por favor, verifica tu email y contraseña.');
         }
       } else {
-        console.error('Ocurrió un error:', err.message);
-        setError('No se pudo conectar con el servidor.');
+        console.error('Ocurrió un error de red:', err.message);
+        setError('No se pudo conectar con el servidor. Verifica tu conexión o el backend.');
       }
     }
   };
 
   return (
     <>
-      <NavBarComponent />
+      {/* NavBarComponent y Footer se renderizan ahora en App.js, por lo que los eliminamos de aquí */}
       <main className="container d-flex align-items-center justify-content-center" style={{ minHeight: '80vh' }}>
         <div className="row w-100">
           <div className="col-md-4 offset-md-4">
@@ -93,7 +92,6 @@ function Login() {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }
