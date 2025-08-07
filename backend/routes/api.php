@@ -32,3 +32,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // Route::get('/profile', [SomeOtherController::class, 'showProfile']);
     
 });
+
+// Rutas de registro (opcional)
+Route::post('/register', [AuthController::class, 'register']);
+// Rutas de prueba (opcional, para verificar que la API está funcionando)
+Route::get('/test', function () {
+    return response()->json(['message' => 'API is working']);
+});

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './auth.css'; // antes login.css o register.css
+import axios from 'axios';
+import './auth.css';
 import Footer from './Footer';
 import NavBarComponent from './navBar';
 
@@ -9,24 +10,50 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validación básica de contraseña
+    setError('');
+    setSuccess('');
+
     if (password !== confirmPassword) {
-      setError('Las contraseñas no coinciden');
+      setError('Las contraseñas no coinciden.');
       return;
     }
-    setError('');
-    // Aquí puedes manejar el registro (por ejemplo, llamar a una API)
-    console.log('Nombre:', name);
-    console.log('Correo:', email);
-    console.log('Contraseña:', password);
-    // Limpieza de campos tras registro (opcional)
-    setName('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
+
+    try {
+      // Obtener la cookie CSRF antes de enviar la petición POST
+      await axios.get('/sanctum/csrf-cookie');
+
+      // Enviar la petición POST a la API de registro
+      const response = await axios.post('/api/register', {
+        name,
+        email,
+        password,
+        password_confirmation: confirmPassword, // ⬅️ Este campo es requerido por el validador 'confirmed' de Laravel
+      });
+
+      if (response.status === 201) {
+        setSuccess('¡Registro exitoso! Ya puedes iniciar sesión.');
+        // Opcional: Limpiar los campos después del registro exitoso
+        setName('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        // Opcional: Redirigir al usuario al login
+        // setTimeout(() => window.location.href = '/login', 2000);
+      }
+    } catch (err) {
+      console.error('Error de registro:', err);
+      if (err.response && err.response.status === 422) {
+        const validationErrors = err.response.data.errors;
+        const firstError = Object.values(validationErrors)[0][0];
+        setError(firstError);
+      } else {
+        setError('Ocurrió un error. Inténtalo de nuevo.');
+      }
+    }
   };
 
   return (
@@ -35,7 +62,10 @@ function Register() {
       <main className="register-container">
         <form className="register-form" onSubmit={handleSubmit}>
           <h2>Crear Cuenta</h2>
-
+          
+          {error && <p className="error-message">{error}</p>}
+          {success && <p className="success-message">{success}</p>}
+          
           <input
             type="text"
             placeholder="Nombre completo"
@@ -43,7 +73,6 @@ function Register() {
             onChange={(e) => setName(e.target.value)}
             required
           />
-
           <input
             type="email"
             placeholder="Correo electrónico"
@@ -51,7 +80,6 @@ function Register() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-
           <input
             type="password"
             placeholder="Contraseña"
@@ -59,7 +87,6 @@ function Register() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-
           <input
             type="password"
             placeholder="Confirmar contraseña"
@@ -68,10 +95,9 @@ function Register() {
             required
           />
 
-          {error && <p className="error-message">{error}</p>}
           <div style={{ textAlign: 'center' }}>
-  <a href="#/Login.js">Iniciar Sesión</a>
-</div>
+            <a href="#/Login.js">Iniciar Sesión</a>
+          </div>
           <button type="submit">Registrarse</button>
         </form>
       </main>
