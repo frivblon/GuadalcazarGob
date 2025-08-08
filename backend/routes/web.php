@@ -1,20 +1,30 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AuthController; // Se importa el controlador correcto
 
-Route::get('/', function () {
-    return view('welcome');
+/*
+|--------------------------------------------------------------------------
+| Rutas Públicas (No requieren autenticación)
+|--------------------------------------------------------------------------
+|
+| Rutas para que un usuario pueda registrarse e iniciar sesión.
+|
+*/
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+/*
+|--------------------------------------------------------------------------
+| Rutas Protegidas (Requieren autenticación)
+|--------------------------------------------------------------------------
+|
+| Estas rutas solo son accesibles para usuarios que ya han iniciado sesión.
+|
+*/
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/user', [AuthController::class, 'user']); // Para obtener los datos del usuario
 });
-
-/*Esta ruta muestra el formulario de inicio de sesión es de tipo GET llama al metodo 
-showLoginForm del Login Controller*/
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-
-/* Esta ruta procesa el formulario de login. Es decir, cuando el usuario envía sus 
-credenciales, este método verifica si son correctas e inicia la sesión es de tipo POST
-y llama al metodo login del Login Controller*/ 
-Route::post('login', [LoginController::class, 'login']);
-
-/*Esta ruta se usa para cerrar sesión, es de tipo POST y llama al metodo logout del LoginController */
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
