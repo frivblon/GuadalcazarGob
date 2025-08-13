@@ -9,10 +9,8 @@ import CarouselComponent from './CarouselComponent';
 function Inicio() {
   return (
     <>
-      <NavBar />
       <CarouselComponent />
             <InfoCard />
-      <Footer />
     </>
   );
 }

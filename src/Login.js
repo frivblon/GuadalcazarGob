@@ -41,7 +41,6 @@ function Login() {
   };
   return (
     <>
-      {/* NavBarComponent y Footer se renderizan ahora en App.js, por lo que los eliminamos de aquí */}
       <main className="container d-flex align-items-center justify-content-center" style={{ minHeight: '80vh' }}>
         <div className="row w-100">
           <div className="col-md-4 offset-md-4">

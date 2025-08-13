@@ -2,11 +2,6 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 // ⬇️ PASO 1: Importa tu nuevo cliente API centralizado.
 import apiClient from './apiClient';
 
-// ❌ Ya no necesitamos 'axios' directamente aquí, ni su configuración por defecto.
-// import axios from 'axios';
-// axios.defaults.baseURL = ...
-// axios.defaults.withCredentials = ...
-
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {

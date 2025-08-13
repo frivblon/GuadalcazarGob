@@ -29,7 +29,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/InfoCard" element={<InfoCard />} />
           </Routes>
-          <Footer />
+         <Footer />
         </div>
       </Router>
     </AuthProvider>

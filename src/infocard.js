@@ -5,8 +5,11 @@ import InfoCardList from './InfoCardList';
 import InfoCardForm from './InfoCardForm';
 // ⬇️ PASO 1: Importa tu nuevo cliente API en lugar de 'axios'
 import apiClient from './apiClient';
+import { useAuth } from './AuthContext'; // ⬅️ 1. Importa el hook
+
 
 const InfoCard = () => {
+  const { isAuthenticated } = useAuth(); // ⬅️ 2. Obtén el estado de autenticación
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -49,13 +52,18 @@ const InfoCard = () => {
     }
   };
 
-  return (
+ return (
     <div className="info-section container my-5">
       <h2 className="text-center mb-4">Nuestros Servicios</h2>
-      <InfoCardForm onAdd={handleAddCard} />
+
+      {/* ⬇️ 3. Renderizado Condicional del Formulario */}
+      {/* Esto se lee como: "SI isAuthenticated es true, ENTONCES renderiza InfoCardForm" */}
+      {isAuthenticated && <InfoCardForm onAdd={handleAddCard} />}
+
       <InfoCardList items={items} onDelete={handleDelete} onEdit={handleEdit} />
     </div>
   );
 };
+
 
 export default InfoCard;
