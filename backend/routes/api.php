@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\InfocardController; // <-- Importación añadida
+use App\Http\Controllers\InfocardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +13,13 @@ use App\Http\Controllers\InfocardController; // <-- Importación añadida
 */
 
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']); // <-- Movida aquí, fuera de la protección
+Route::post('/login', [AuthController::class, 'login']);
+
+// Rutas PÚBLICAS para ver las Infocards
+// Cualquiera puede ver la lista de infocards y una infocard específica.
+Route::apiResource('infocards', InfocardController::class)->only([
+    'index', 'show'
+]);
 
 // Ruta de prueba
 Route::get('/test', function () {
@@ -32,7 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    // Rutas para gestionar Productos (ahora protegidas)
+    // Rutas para gestionar Productos (protegidas)
     Route::controller(ProductController::class)->group(function () {
         Route::get('/products', 'index');
         Route::post('/product', 'store');
@@ -41,6 +47,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/product/{id}', 'destroy');
     });
 
-    // Rutas para gestionar las Infocards (ahora protegidas)
-    Route::apiResource('infocards', InfocardController::class);
+    // Rutas PROTEGIDAS para crear, actualizar y eliminar Infocards.
+    // Solo se registran las rutas que modifican datos.
+    Route::apiResource('infocards', InfocardController::class)->except([
+        'index', 'show'
+    ]);
 });
