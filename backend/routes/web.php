@@ -1,5 +1,5 @@
 <?php
-
+/*
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController; // Se importa el controlador correcto
 
@@ -12,8 +12,10 @@ use App\Http\Controllers\AuthController; // Se importa el controlador correcto
 |
 */
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::get('/sanctum/csrf-cookie', function () {
+    return response()->json(['message' => 'CSRF cookie set']);
+});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,11 @@ Route::post('/login', [AuthController::class, 'login']);
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
+/*
+Route::middleware(['web', 'auth:sanctum'])->group(function () {
+    Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/user', [AuthController::class, 'user']); // Para obtener los datos del usuario
-});
+    Route::get('/user', [AuthController::class, 'user']); // Devuelve datos del usuario
+
+});*/

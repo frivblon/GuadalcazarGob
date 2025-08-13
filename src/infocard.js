@@ -1,30 +1,31 @@
+// InfoCard.js
+
 import React, { useState, useEffect } from 'react';
 import InfoCardList from './InfoCardList';
 import InfoCardForm from './InfoCardForm';
-import axios from 'axios'; // ⬅️ Importa Axios
+// ⬇️ PASO 1: Importa tu nuevo cliente API en lugar de 'axios'
+import apiClient from './apiClient';
 
 const InfoCard = () => {
-  const [items, setItems] = useState([]); // El estado ahora se llenará desde la API
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
-    // ⬅️ Función para obtener las infocards desde la API
     const fetchInfocards = async () => {
       try {
-        const response = await axios.get('/api/infocards');
+        // ⬇️ PASO 2: Usa apiClient para todas las peticiones
+        const response = await apiClient.get('/api/infocards');
         setItems(response.data);
       } catch (error) {
         console.error('Error al obtener las infocards:', error);
-        // Manejo de errores: podrías mostrar un mensaje al usuario
       }
     };
-
-    fetchInfocards(); // Llama a la función al montar el componente
-  }, []); // El array vacío asegura que se ejecute solo una vez al montar
+    fetchInfocards();
+  }, []);
 
   const handleAddCard = async (newItem) => {
     try {
-      const response = await axios.post('/api/infocards', newItem);
-      setItems([...items, response.data]); // Agrega la nueva infocard devuelta por el backend
+      const response = await apiClient.post('/api/infocards', newItem); // <- Usa apiClient
+      setItems([...items, response.data]);
     } catch (error) {
       console.error('Error al agregar infocard:', error);
     }
@@ -32,8 +33,8 @@ const InfoCard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/infocards/${id}`);
-      setItems(items.filter(item => item.id !== id)); // Filtra la infocard eliminada
+      await apiClient.delete(`/api/infocards/${id}`); // <- Usa apiClient
+      setItems(items.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar infocard:', error);
     }
@@ -41,8 +42,8 @@ const InfoCard = () => {
 
   const handleEdit = async (id, updatedItem) => {
     try {
-      const response = await axios.put(`/api/infocards/${id}`, updatedItem);
-      setItems(items.map(item => item.id === id ? response.data : item)); // Actualiza la infocard con los datos devueltos
+      const response = await apiClient.put(`/api/infocards/${id}`, updatedItem); // <- Usa apiClient
+      setItems(items.map(item => item.id === id ? response.data : item));
     } catch (error) {
       console.error('Error al editar infocard:', error);
     }

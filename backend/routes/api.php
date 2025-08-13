@@ -12,14 +12,17 @@ use App\Http\Controllers\InfocardController;
 |--------------------------------------------------------------------------
 */
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-
 // Rutas PÚBLICAS para ver las Infocards
 // Cualquiera puede ver la lista de infocards y una infocard específica.
 Route::apiResource('infocards', InfocardController::class)->only([
     'index', 'show'
 ]);
+
+
+// Rutas para que un usuario pueda registrarse e iniciar sesión.
+// ¡Estas deben estar fuera del grupo de autenticación!
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
 // Ruta de prueba
 Route::get('/test', function () {

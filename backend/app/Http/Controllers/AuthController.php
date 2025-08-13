@@ -27,7 +27,7 @@ class AuthController extends Controller
             ]);
         }
 
-        #$request->session()->regenerate();
+        $request->session()->regenerate();
         // 3. Si la autenticación es exitosa, Laravel ya ha establecido la cookie de sesión.
         // No necesitas generar un token aquí para la autenticación de SPA.
         // Simplemente devuelve una respuesta sin contenido (o un mensaje de éxito simple).
