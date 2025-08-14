@@ -1,37 +1,40 @@
 // src/components/ObrasPublicas.jsx
 
-import React from 'react';
-
-// Datos de ejemplo basados en proyectos comunes en la región.
-// En una aplicación real, esto vendría de tu API.
-const proyectos = [
-  {
-    id: 1,
-    titulo: 'Pavimentación de la Calle Morelos',
-    descripcion: 'Modernización de una de las principales vías de la cabecera municipal con concreto hidráulico, mejorando el tránsito y la calidad de vida de los vecinos.',
-    imagen: '',
-    icono: 'fas fa-road',
-  },
-  {
-    id: 2,
-    titulo: 'Rehabilitación de la Red de Agua Potable',
-    descripcion: 'Sustitución de tuberías en la comunidad de Pozas de Santa Ana para reducir fugas y garantizar el abasto de agua potable a más de 200 familias.',
-    imagen: '',
-    icono: 'fas fa-tint',
-  },
-  {
-    id: 3,
-    titulo: 'Ampliación de la Red de Alumbrado Público',
-    descripcion: 'Instalación de nuevas luminarias con tecnología LED en la comunidad de El Realejo, proporcionando mayor seguridad y visibilidad nocturna.',
-    imagen: '',
-    icono: 'fas fa-lightbulb',
-  },
-];
+import React, { useState, useEffect } from 'react';
+// ⬇️ 1. Importamos nuestro cliente API centralizado
+import apiClient from './apiClient';
 
 const ObrasPublicas = () => {
+  // ⬇️ 2. Estado para guardar los proyectos que vengan del API (inicialmente vacío)
+  const [proyectos, setProyectos] = useState([]);
+  const [loading, setLoading] = useState(true); // Estado para mostrar un mensaje de carga
+
+  // ⬇️ 3. useEffect para obtener los datos cuando el componente se monta
+  useEffect(() => {
+    const fetchProyectos = async () => {
+      try {
+        setLoading(true); // Empezamos a cargar
+        const response = await apiClient.get('/api/proyectos');
+        setProyectos(response.data); // Guardamos los proyectos del API en el estado
+      } catch (error) {
+        console.error('Error al obtener los proyectos:', error);
+        // Aquí podrías guardar un estado de error para mostrar un mensaje al usuario
+      } finally {
+        setLoading(false); // Terminamos de cargar, haya funcionado o no
+      }
+    };
+
+    fetchProyectos();
+  }, []); // El array vacío [] asegura que se ejecute solo una vez
+
+  // Mensaje de carga mientras esperamos la respuesta del API
+  if (loading) {
+    return <div className="text-center my-5">Cargando proyectos...</div>;
+  }
+
   return (
     <div className="container my-5">
-      {/* --- SECCIÓN DE TÍTULO E INTRODUCCIÓN --- */}
+      {/* --- SECCIÓN DE TÍTULO E INTRODUCCIÓN (Sin cambios) --- */}
       <div className="text-center mb-5">
         <h1 className="display-4">Obras Públicas</h1>
         <p className="lead text-muted">
@@ -39,7 +42,7 @@ const ObrasPublicas = () => {
         </p>
       </div>
 
-      {/* --- SECCIÓN DE PROYECTOS DESTACADOS --- */}
+      {/* --- SECCIÓN DE PROYECTOS DESTACADOS (Ahora es dinámica) --- */}
       <div className="row">
         <div className="col-12 text-center">
           <h2 className="mb-4">Proyectos Recientes</h2>
@@ -48,16 +51,18 @@ const ObrasPublicas = () => {
       </div>
 
       <div className="row g-4">
+        {/* ⬇️ 4. Hacemos .map() sobre el estado 'proyectos' que llenamos desde el API */}
         {proyectos.map((proyecto) => (
           <div key={proyecto.id} className="col-md-6 col-lg-4">
             <div className="card h-100 shadow-sm">
-              <img src={proyecto.imagen} className="card-img-top" alt={proyecto.titulo} style={{ height: '200px', objectFit: 'cover' }} />
+              <img src={proyecto.image_url} className="card-img-top" alt={proyecto.title} style={{ height: '200px', objectFit: 'cover' }} />
               <div className="card-body d-flex flex-column">
                 <h5 className="card-title">
-                  <i className={`${proyecto.icono} text-primary me-2`}></i>
-                  {proyecto.titulo}
+                  <i className={`${proyecto.icon} text-primary me-2`}></i>
+                  {proyecto.title}
                 </h5>
-                <p className="card-text flex-grow-1">{proyecto.descripcion}</p>
+                <p className="card-text flex-grow-1">{proyecto.description}</p>
+                {/* Este botón podría llevar a una página de detalle del proyecto en el futuro */}
                 <a href="#" className="btn btn-outline-primary mt-auto align-self-start">
                   Ver más detalles
                 </a>
@@ -67,34 +72,8 @@ const ObrasPublicas = () => {
         ))}
       </div>
 
-      {/* --- SECCIÓN DE RESPONSABILIDADES --- */}
-      <div className="row mt-5 pt-5">
-        <div className="col-lg-8 mx-auto">
-          <div className="card bg-light border-0">
-            <div className="card-body p-5">
-              <h3 className="text-center mb-4">Nuestras Responsabilidades</h3>
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item bg-light">
-                  <i className="fas fa-tasks text-primary me-2"></i>
-                  Planeación y ejecución de proyectos de infraestructura municipal.
-                </li>
-                <li className="list-group-item bg-light">
-                  <i className="fas fa-hard-hat text-primary me-2"></i>
-                  Construcción y mantenimiento de calles, caminos y banquetas.
-                </li>
-                <li className="list-group-item bg-light">
-                  <i className="fas fa-plug text-primary me-2"></i>
-                  Supervisión y mejora de la red de alumbrado público.
-                </li>
-                <li className="list-group-item bg-light">
-                  <i className="fas fa-building text-primary me-2"></i>
-                  Mantenimiento y rehabilitación de edificios y espacios públicos.
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* --- SECCIÓN DE RESPONSABILIDADES (Sin cambios) --- */}
+      {/* ... (el resto de tu componente no necesita cambios) ... */}
     </div>
   );
 };

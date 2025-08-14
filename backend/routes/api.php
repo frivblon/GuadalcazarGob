@@ -5,13 +5,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\InfocardController;
-
+use App\Http\Controllers\Api\ProyectoController;
 /*
 |--------------------------------------------------------------------------
 | Rutas Públicas (no requieren autenticación)
 |--------------------------------------------------------------------------
 */
 
+// --- RUTAS PÚBLICAS DE PROYECTOS---
+Route::apiResource('proyectos', ProyectoController::class)->only(['index', 'show']);
 // Rutas PÚBLICAS para ver las Infocards
 // Cualquiera puede ver la lista de infocards y una infocard específica.
 Route::apiResource('infocards', InfocardController::class)->only([
@@ -37,6 +39,9 @@ Route::get('/test', function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     
+    // Rutas para modificar proyectos
+    Route::apiResource('proyectos', ProyectoController::class)->except(['index', 'show']);
+
     // Rutas para el usuario autenticado
     Route::get('/user', [AuthController::class, 'user']);
     Route::post('/logout', [AuthController::class, 'logout']);
