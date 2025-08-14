@@ -4,31 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Models\Infocard;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\JsonResponse; 
 class InfocardController extends Controller
 {
-    /**
+   /**
      * Muestra una lista de todas las infocards.
      */
-    public function index()
+     public function index()
     {
-        return response()->json(Infocard::all());
-    }
+        $infocards = Infocard::all();
 
+        return new JsonResponse($infocards, 200, [], JSON_UNESCAPED_SLASHES);
+    }
     /**
      * Almacena una nueva infocard en la base de datos.
      */
-    public function store(Request $request)
+     public function store(Request $request)
     {
+        // 1. La validación sigue siendo la misma
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image_url' => 'required|url', // Valida que sea una URL válida
+            'image' => 'required|image|max:2048', // 2MB max
         ]);
 
-        $infocard = Infocard::create($request->all());
+        // 2. Guardamos la imagen en el disco público
+        // Laravel automáticamente generará un nombre único para el archivo
+        // y lo guardará dentro de 'storage/app/public/infocards'
+        $path = $request->file('image')->store('infocards', 'public');
 
-        return response()->json($infocard, 201); // 201 Created
+        // 3. Creamos el registro en la base de datos con la ruta del archivo
+        $infocard = Infocard::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'image_url' => $path, // Guardamos la ruta relativa, ej: "infocards/random_name.jpg"
+        ]);
+
+        return response()->json($infocard, 201);
     }
 
     /**

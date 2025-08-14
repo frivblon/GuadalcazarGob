@@ -25,15 +25,18 @@ const InfoCard = () => {
     fetchInfocards();
   }, []);
 
-  const handleAddCard = async (newItem) => {
+ const handleAddCard = async (formData) => { // ⬅️ Ahora recibe el objeto FormData
     try {
-      const response = await apiClient.post('/api/infocards', newItem); // <- Usa apiClient
+      // apiClient detecta que le estás pasando FormData y automáticamente
+      // configura la petición como 'multipart/form-data'. ¡Es así de fácil!
+      const response = await apiClient.post('/api/infocards', formData);
+      
+      // Añadimos el nuevo item (que viene del backend con la URL ya procesada) a la lista
       setItems([...items, response.data]);
     } catch (error) {
-      console.error('Error al agregar infocard:', error);
+   console.error('Error al agregar infocard:', error);
     }
   };
-
   const handleDelete = async (id) => {
     try {
       await apiClient.delete(`/api/infocards/${id}`); // <- Usa apiClient
