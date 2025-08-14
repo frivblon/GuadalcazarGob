@@ -10,6 +10,7 @@ import { AuthProvider } from './AuthContext'; // ⬅️ Importa el proveedor de 
 import NavBarComponent from './navBar'; // ⬅️ Asegúrate de importar tu NavBar
 import Footer from './Footer';
 import axios from 'axios';
+import ObrasPublicas from './ObrasPublicas';
 
 // Configuración global de Axios
 axios.defaults.withCredentials = true;
@@ -28,6 +29,8 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/InfoCard" element={<InfoCard />} />
+            <Route path="/Prueba" element={<Prueba />} />
+            <Route path="/ObrasPublicas" element={<ObrasPublicas />} />
           </Routes>
          <Footer />
         </div>

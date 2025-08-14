@@ -41,7 +41,7 @@ function NavBarComponent() {
         <Navbar.Collapse id="main-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Link as={Link} to="/">Inicio</Nav.Link>
-            <Nav.Link as={Link} to="/obras">Obras Públicas</Nav.Link>
+            <Nav.Link as={Link} to="/ObrasPublicas">Obras Públicas</Nav.Link>
             <Nav.Link as={Link} to="/deportes">Deportes</Nav.Link>
             <Nav.Link as={Link} to="/cultura">Cultura</Nav.Link>
             <Nav.Link as={Link} to="/desarrollo">Desarrollo Social</Nav.Link>
