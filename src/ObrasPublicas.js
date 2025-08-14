@@ -1,6 +1,7 @@
 // src/components/ObrasPublicas.jsx
-
+import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+
 // ⬇️ 1. Importamos nuestro cliente API centralizado
 import apiClient from './apiClient';
 
@@ -50,8 +51,7 @@ const ObrasPublicas = () => {
         </div>
       </div>
 
-      <div className="row g-4">
-        {/* ⬇️ 4. Hacemos .map() sobre el estado 'proyectos' que llenamos desde el API */}
+    <div className="row g-4">
         {proyectos.map((proyecto) => (
           <div key={proyecto.id} className="col-md-6 col-lg-4">
             <div className="card h-100 shadow-sm">
@@ -62,10 +62,11 @@ const ObrasPublicas = () => {
                   {proyecto.title}
                 </h5>
                 <p className="card-text flex-grow-1">{proyecto.description}</p>
-                {/* Este botón podría llevar a una página de detalle del proyecto en el futuro */}
-                <a href="#" className="btn btn-outline-primary mt-auto align-self-start">
+                
+                {/* ⬇️ 2. Reemplaza <a> por <Link> con la ruta dinámica */}
+                <Link to={`/proyectos/${proyecto.id}`} className="btn btn-outline-primary mt-auto align-self-start">
                   Ver más detalles
-                </a>
+                </Link>
               </div>
             </div>
           </div>

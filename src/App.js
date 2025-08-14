@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // ⬇️ 1. Importa 'Navigate' para poder hacer redirecciones
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import './Styles.css';
+import './App.css';
 
 // Componentes
 import Inicio from './Inicio';
@@ -14,6 +15,7 @@ import ObrasPublicas from './ObrasPublicas';
 import AdminProyectos from './AdminProyectos';
 import NavBarComponent from './navBar';
 import Footer from './Footer';
+import ProyectoDetalle from './ProyectoDetalle';
 
 // ⬇️ 2. Importa 'useAuth' junto con 'AuthProvider'
 import { AuthProvider, useAuth } from './AuthContext';
@@ -37,6 +39,8 @@ const AppRoutes = () => {
       <Route path="/InfoCard" element={<InfoCard />} />
       <Route path="/AdminProyectos" element={<AdminProyectos />} />
       <Route path="/ObrasPublicas" element={<ObrasPublicas />} />
+       {/* El ":id" es un parámetro que cambiará según el proyecto */}
+       <Route path="/proyectos/:id" element={<ProyectoDetalle />} />
       <Route 
         path="/admin/proyectos" 
         element={isAuthenticated ? <AdminProyectos /> : <Navigate to="/login" />} 
@@ -49,9 +53,15 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        {/* Este div ahora es un contenedor flexbox gracias al CSS que añadimos */}
         <div className="App">
           <NavBarComponent />
-          <AppRoutes /> {/* Usamos el componente que contiene las rutas y la lógica de autenticación */}
+          
+          {/* ⬇️ Envolvemos las rutas en un <main> con la nueva clase ⬇️ */}
+          <main className="main-content">
+            <AppRoutes />
+          </main>
+          
           <Footer />
         </div>
       </Router>

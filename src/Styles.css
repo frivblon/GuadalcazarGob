@@ -1,3 +1,21 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que el contenedor principal ocupe al menos el 100% de la altura de la pantalla */
+}
+
+
+.main-content {
+  flex-grow: 1;
+  padding-top: 75px; /* <--- AÑADE ESTA LÍNEA */
+}
+
+.main-content {
+  flex-grow: 1;
+  padding-top: 75px; /* El que ya teníamos para la NavBar */
+  padding-bottom: 80px; /* <--- AÑADE ESTA LÍNEA (usa la altura de tu footer + un margen) */
+}
+
 .logo-img {
     height: 80px;
     width: auto;
