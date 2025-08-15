@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import apiClient from './apiClient';
+import InscripcionForm from './InscripcionForm';
 
 const EventoDetalle = () => {
     const { id } = useParams();
@@ -76,9 +77,11 @@ const EventoDetalle = () => {
                     <div className="project-description" style={{ lineHeight: '1.8' }}>
                         <p>{evento.description}</p>
                     </div>
+                   <hr className="my-5" />
+                    <InscripcionForm eventoId={evento.id} />
+                </div>
                 </div>
             </div>
-        </div>
     );
 };
 

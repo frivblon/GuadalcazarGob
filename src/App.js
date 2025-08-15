@@ -20,6 +20,7 @@ import Footer from './Footer';
 // ⬇️ 1. Corregimos la ruta de importación a la carpeta 'components'
 import AdminProyectos from './AdminProyectos'; 
 import AdminEventos from './AdminEventos'; 
+import AdminInscripciones from './AdminInscripciones'; 
 
 // --- Contexto de Autenticación ---
 import { AuthProvider, useAuth } from './AuthContext';
@@ -46,10 +47,17 @@ const AppRoutes = () => {
         path="/admin/proyectos" 
         element={isAuthenticated ? <AdminProyectos /> : <Navigate to="/login" />} 
       />
+      
       <Route 
         path="/admin/eventos" 
         element={isAuthenticated ? <AdminEventos /> : <Navigate to="/login" />} 
       />
+
+      <Route 
+        path="/admin/inscripciones" 
+        element={isAuthenticated ? <AdminInscripciones /> : <Navigate to="/login" />} 
+      />
+
     </Routes>
   );
 }

@@ -7,12 +7,15 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\InfocardController;
 use App\Http\Controllers\Api\ProyectoController;
 use App\Http\Controllers\Api\EventoDeportivoController;
-
+use App\Http\Controllers\Api\InscripcionController;
 /*
 |--------------------------------------------------------------------------
 | Rutas Públicas (no requieren autenticación)
 |--------------------------------------------------------------------------
 */
+// Rutas PÚBLICAS para inscripciones a eventos deportivos
+Route::post('/inscripciones', [InscripcionController::class, 'store']);
+
 //Rutas PÚBLICAS para ver los Eventos Deportivos
 // Cualquiera puede ver la lista de eventos deportivos y un evento específico.
 Route::apiResource('evento-deportivos', EventoDeportivoController::class)->only(['index', 'show']);
@@ -43,7 +46,10 @@ Route::get('/test', function () {
 */
 
 Route::middleware('auth:sanctum')->group(function () {
-    
+
+    // Rutas PROTEGIDAS para inscripciones a eventos deportivos
+        Route::get('/admin/inscripciones', [App\Http\Controllers\Api\InscripcionController::class, 'index']);
+
     // Rutas PROTEGIDAS para crear, actualizar y eliminar Eventos Deportivos.
     Route::apiResource('evento-deportivos', EventoDeportivoController::class)->except(['index', 'show']);
     // Rutas para modificar proyectos
