@@ -1,7 +1,7 @@
 // src/components/ObrasPublicas.jsx
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-
+import './Styles.css'; 
 // ⬇️ 1. Importamos nuestro cliente API centralizado
 import apiClient from './apiClient';
 
@@ -61,7 +61,8 @@ const ObrasPublicas = () => {
                   <i className={`${proyecto.icon} text-primary me-2`}></i>
                   {proyecto.title}
                 </h5>
-                <p className="card-text flex-grow-1">{proyecto.description}</p>
+                <p className="card-text flex-grow-1 truncate-text">{proyecto.description}</p>
+          
                 
                 {/* ⬇️ 2. Reemplaza <a> por <Link> con la ruta dinámica */}
                 <Link to={`/proyectos/${proyecto.id}`} className="btn btn-outline-primary mt-auto align-self-start">
