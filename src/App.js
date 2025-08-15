@@ -1,49 +1,54 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// ⬇️ 1. Importa 'Navigate' para poder hacer redirecciones
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import './Styles.css';
 import './App.css';
 
-// Componentes
+// --- Componentes de Páginas ---
 import Inicio from './Inicio';
 import Login from './Login';
 import Register from './Register';
 import InfoCard from './InfoCard';
-import Prueba from './Prueba';
 import ObrasPublicas from './ObrasPublicas';
-import AdminProyectos from './AdminProyectos';
+import ProyectoDetalle from './ProyectoDetalle';
+import EventoDetalle from './EventoDetalle';
+import Deportes from './Deportes';
 import NavBarComponent from './navBar';
 import Footer from './Footer';
-import ProyectoDetalle from './ProyectoDetalle';
 
-// ⬇️ 2. Importa 'useAuth' junto con 'AuthProvider'
+// --- Componentes de Administración ---
+// ⬇️ 1. Corregimos la ruta de importación a la carpeta 'components'
+import AdminProyectos from './AdminProyectos'; 
+import AdminEventos from './AdminEventos'; 
+
+// --- Contexto de Autenticación ---
 import { AuthProvider, useAuth } from './AuthContext';
 
-// La configuración de Axios no es necesaria aquí si ya la tienes en apiClient.js
-// import axios from 'axios';
-// axios.defaults.withCredentials = true;
-// axios.defaults.baseURL = 'http://12centralizado...
-
-// ⬇️ 3. Creamos un componente interno para las rutas
-//    Esto es necesario porque el hook 'useAuth' solo puede ser usado por componentes
-//    que están DENTRO del AuthProvider.
 const AppRoutes = () => {
-  const { isAuthenticated } = useAuth(); // Ahora esta llamada es válida
+  const { isAuthenticated } = useAuth();
 
   return (
     <Routes>
+      {/* --- Rutas Públicas --- */}
       <Route path="/" element={<Inicio />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/InfoCard" element={<InfoCard />} />
-      <Route path="/AdminProyectos" element={<AdminProyectos />} />
-      <Route path="/ObrasPublicas" element={<ObrasPublicas />} />
-       {/* El ":id" es un parámetro que cambiará según el proyecto */}
-       <Route path="/proyectos/:id" element={<ProyectoDetalle />} />
+      
+      {/* ⬇️ 2. Rutas de contenido consistentes (en minúsculas) */}
+      <Route path="/info-card" element={<InfoCard />} />
+      <Route path="/obras-publicas" element={<ObrasPublicas />} />
+      <Route path="/proyectos/:id" element={<ProyectoDetalle />} />
+      <Route path="/deportes" element={<Deportes />} />
+      <Route path="/deportes/:id" element={<EventoDetalle />} />
+    
+      {/* --- Rutas de Administración (Protegidas) --- */}
       <Route 
         path="/admin/proyectos" 
         element={isAuthenticated ? <AdminProyectos /> : <Navigate to="/login" />} 
+      />
+      <Route 
+        path="/admin/eventos" 
+        element={isAuthenticated ? <AdminEventos /> : <Navigate to="/login" />} 
       />
     </Routes>
   );
@@ -53,15 +58,11 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        {/* Este div ahora es un contenedor flexbox gracias al CSS que añadimos */}
         <div className="App">
           <NavBarComponent />
-          
-          {/* ⬇️ Envolvemos las rutas en un <main> con la nueva clase ⬇️ */}
           <main className="main-content">
             <AppRoutes />
           </main>
-          
           <Footer />
         </div>
       </Router>

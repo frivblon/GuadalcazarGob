@@ -6,11 +6,16 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\InfocardController;
 use App\Http\Controllers\Api\ProyectoController;
+use App\Http\Controllers\Api\EventoDeportivoController;
+
 /*
 |--------------------------------------------------------------------------
 | Rutas Públicas (no requieren autenticación)
 |--------------------------------------------------------------------------
 */
+//Rutas PÚBLICAS para ver los Eventos Deportivos
+// Cualquiera puede ver la lista de eventos deportivos y un evento específico.
+Route::apiResource('evento-deportivos', EventoDeportivoController::class)->only(['index', 'show']);
 
 // --- RUTAS PÚBLICAS DE PROYECTOS---
 Route::apiResource('proyectos', ProyectoController::class)->only(['index', 'show']);
@@ -39,6 +44,8 @@ Route::get('/test', function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     
+    // Rutas PROTEGIDAS para crear, actualizar y eliminar Eventos Deportivos.
+    Route::apiResource('evento-deportivos', EventoDeportivoController::class)->except(['index', 'show']);
     // Rutas para modificar proyectos
     Route::apiResource('proyectos', ProyectoController::class)->except(['index', 'show']);
 

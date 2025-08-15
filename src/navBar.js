@@ -41,7 +41,7 @@ function NavBarComponent() {
         <Navbar.Collapse id="main-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Link as={Link} to="/">Inicio</Nav.Link>
-            <Nav.Link as={Link} to="/ObrasPublicas">Obras Públicas</Nav.Link>
+            <Nav.Link as={Link} to="/obras-publicas">Obras Públicas</Nav.Link>
             <Nav.Link as={Link} to="/deportes">Deportes</Nav.Link>
             <Nav.Link as={Link} to="/cultura">Cultura</Nav.Link>
             <Nav.Link as={Link} to="/desarrollo">Desarrollo Social</Nav.Link>
@@ -49,7 +49,7 @@ function NavBarComponent() {
 
             {/* ⬅️ Lógica Condicional para "Agregar Infocards" */}
             {isAuthenticated && (
-              <Nav.Link as={Link} to="/InfoCard">Agregar Infocards</Nav.Link>
+              <Nav.Link as={Link} to="/info-card">Agregar Infocards</Nav.Link>
             )}
 
             {/* ⬅️ Lógica Condicional para Login/Registro o Cerrar Sesión */}
