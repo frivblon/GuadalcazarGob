@@ -92,12 +92,12 @@ const AdminCultura = () => {
                 <div className="row">
                     <div className="col-md-6 mb-3">
                         <label className="form-label">Lugar (Opcional)</label>
-                        {/* ⬇️ CORRECCIÓN: Conecta el 'value' al estado 'location' ⬇️ */}
+                      
                         <input type="text" className="form-control" value={location} onChange={e => setLocation(e.target.value)} />
                     </div>
                     <div className="col-md-6 mb-3">
                         <label className="form-label">Fecha del Evento (Opcional)</label>
-                        {/* ⬇️ CORRECCIÓN: Conecta el 'value' al estado 'event_date' ⬇️ */}
+                       
                         <input type="date" className="form-control" value={event_date} onChange={e => setEventDate(e.target.value)} />
                     </div>
                 </div>

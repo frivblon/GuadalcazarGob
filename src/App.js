@@ -12,13 +12,13 @@ import InfoCard from './InfoCard';
 import ObrasPublicas from './ObrasPublicas';
 import ProyectoDetalle from './ProyectoDetalle';
 import EventoDetalle from './EventoDetalle';
+import NoticiaDetalle from './NoticiaDetalle';
 import Deportes from './Deportes';
 import Cultura from './Cultura';
 import NavBarComponent from './navBar';
 import Footer from './Footer';
 
 // --- Componentes de Administración ---
-// ⬇️ 1. Corregimos la ruta de importación a la carpeta 'components'
 import AdminProyectos from './AdminProyectos'; 
 import AdminEventos from './AdminEventos'; 
 import AdminInscripciones from './AdminInscripciones'; 
@@ -41,10 +41,12 @@ const AppRoutes = () => {
       <Route path="/info-card" element={<InfoCard />} />
       <Route path="/obras-publicas" element={<ObrasPublicas />} />
       <Route path="/proyectos/:id" element={<ProyectoDetalle />} />
+      
       <Route path="/deportes" element={<Deportes />} />
       <Route path="/deportes/:id" element={<EventoDetalle />} />
+
       <Route path="/cultura" element={<Cultura />} />
-       {/* <Route path="/cultura/:id" element={<NoticiaDetalle />} /> */}
+      <Route path="/cultura/:id" element={<NoticiaDetalle />} /> 
     
       {/* --- Rutas de Administración (Protegidas) --- */}
       <Route 
