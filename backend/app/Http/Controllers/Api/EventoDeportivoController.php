@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\EventoDeportivo;
+use Illuminate\Support\Facades\Storage;
 
 class EventoDeportivoController extends Controller
 {
@@ -38,9 +39,9 @@ class EventoDeportivoController extends Controller
         return new JsonResponse($evento, 201, [], JSON_UNESCAPED_SLASHES);
     }
 
-    public function show(EventoDeportivo $eventoDeportivo)
+    public function show(EventoDeportivo $evento)
     {
-        return new JsonResponse($eventoDeportivo, 200, [], JSON_UNESCAPED_SLASHES);
+        return new JsonResponse($evento, 200, [], JSON_UNESCAPED_SLASHES);
     }
 
     /**
@@ -54,8 +55,14 @@ class EventoDeportivoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+public function destroy(EventoDeportivo $evento)
+{
+    if ($evento->image_url) {
+        Storage::disk('public')->delete($evento->image_url);
     }
+
+    $evento->delete();
+    return response()->noContent();
+}
+
 }

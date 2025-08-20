@@ -29,8 +29,8 @@ Route::post('/inscripciones', [InscripcionController::class, 'store']);
 
 //Rutas PÚBLICAS para ver los Eventos Deportivos
 // Cualquiera puede ver la lista de eventos deportivos y un evento específico.
-Route::apiResource('evento-deportivos', EventoDeportivoController::class)->only(['index', 'show']);
-
+Route::apiResource('evento-deportivos', EventoDeportivoController::class)->only(['index', 'show'])
+    ->parameters(['evento-deportivos' => 'evento']);
 // --- RUTAS PÚBLICAS DE PROYECTOS---
 Route::apiResource('proyectos', ProyectoController::class)->only(['index', 'show']);
 // Rutas PÚBLICAS para ver las Infocards
@@ -70,7 +70,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/admin/inscripciones', [App\Http\Controllers\Api\InscripcionController::class, 'index']);
 
     // Rutas PROTEGIDAS para crear, actualizar y eliminar Eventos Deportivos.
-    Route::apiResource('evento-deportivos', EventoDeportivoController::class)->except(['index', 'show']);
+    Route::apiResource('evento-deportivos', EventoDeportivoController::class)->except(['index', 'show'])
+        ->parameters(['evento-deportivos' => 'evento']);
+
+    
     // Rutas para modificar proyectos
     Route::apiResource('proyectos', ProyectoController::class)->except(['index', 'show']);
 

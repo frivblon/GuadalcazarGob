@@ -35,4 +35,24 @@ class InscripcionController extends Controller
             'data' => $inscripcion
         ], 201);
     }
+    public function show(Inscripcion $inscripcion)
+    {
+        return new JsonResponse($inscripcion, 200, [], JSON_UNESCAPED_SLASHES);
+    }
+
+     public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
 }
+
+
+
