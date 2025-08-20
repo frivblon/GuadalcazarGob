@@ -9,11 +9,16 @@ use App\Http\Controllers\Api\ProyectoController;
 use App\Http\Controllers\Api\EventoDeportivoController;
 use App\Http\Controllers\Api\InscripcionController;
 use App\Http\Controllers\Api\NoticiaCulturalController;
+use App\Http\Controllers\Api\ProgramaSocialController;
 /*
 |--------------------------------------------------------------------------
 | Rutas Públicas (no requieren autenticación)
 |--------------------------------------------------------------------------
 */
+// Rutas PÚBLICAS para ver los Programas Sociales
+Route::apiResource('programas-sociales', ProgramaSocialController::class)
+     ->only(['index', 'show'])
+     ->parameters(['programas-sociales' => 'programa_social']);
 
 Route::apiResource('noticias-culturales', NoticiaCulturalController::class)
      ->only(['index', 'show'])
@@ -52,6 +57,11 @@ Route::get('/test', function () {
 */
 
 Route::middleware('auth:sanctum')->group(function () {
+
+    // Rutas PROTEGIDAS para crear, actualizar y eliminar Programas Sociales
+    Route::apiResource('programas-sociales', ProgramaSocialController::class)
+     ->except(['index', 'show'])
+     ->parameters(['programas-sociales' => 'programa_social']);
 
     // Rutas PROTEGIDAS para Noticias Culturales
      Route::apiResource('noticias-culturales', NoticiaCulturalController::class)->except(['index', 'show'])

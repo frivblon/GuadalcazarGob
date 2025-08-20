@@ -25,8 +25,7 @@ function Login() {
       // 3️⃣ Si la línea anterior no dio error, el login fue exitoso.
       // El contexto ya actualizó el estado del usuario en toda la app.
       // Solo nos queda redirigir.
-      navigate('/InfoCard');
-
+     navigate('/admin/dashboard'); 
     } catch (err) {
       // El manejo de errores sigue siendo el mismo.
       // Si las credenciales son inválidas, la función 'login' del contexto

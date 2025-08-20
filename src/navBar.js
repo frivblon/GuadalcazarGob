@@ -44,12 +44,12 @@ function NavBarComponent() {
             <Nav.Link as={Link} to="/obras-publicas">Obras Públicas</Nav.Link>
             <Nav.Link as={Link} to="/deportes">Deportes</Nav.Link>
             <Nav.Link as={Link} to="/cultura">Cultura</Nav.Link>
-            <Nav.Link as={Link} to="/desarrollo">Desarrollo Social</Nav.Link>
+            <Nav.Link as={Link} to="/desarrollo-social">Desarrollo Social</Nav.Link>
             
 
             {/* ⬅️ Lógica Condicional para "Agregar Infocards" */}
             {isAuthenticated && (
-              <Nav.Link as={Link} to="/info-card">Agregar Infocards</Nav.Link>
+              <Nav.Link as={Link} to="/admin/Dashboard">DashboardAdmin</Nav.Link>
             )}
 
             {/* ⬅️ Lógica Condicional para Login/Registro o Cerrar Sesión */}
@@ -60,7 +60,7 @@ function NavBarComponent() {
             ) : (
               <>
                 <Nav.Link as={Link} to="/login">Inicia Sesión</Nav.Link>
-                <Nav.Link as={Link} to="/register">Regístrate</Nav.Link> {/* Opcional: enlazar a la página de registro */}
+                <Nav.Link as={Link} to="/register">Regístrate</Nav.Link> {/* ⬅️ Enlace a la página de registro */}
               </>
             )}
           </Nav>
