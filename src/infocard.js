@@ -3,19 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import InfoCardList from './InfoCardList';
 import InfoCardForm from './InfoCardForm';
-// ⬇️ PASO 1: Importa tu nuevo cliente API en lugar de 'axios'
 import apiClient from './apiClient';
-import { useAuth } from './AuthContext'; // ⬅️ 1. Importa el hook
+import { useAuth } from './AuthContext'; // 
 
 
 const InfoCard = () => {
-  const { isAuthenticated } = useAuth(); // ⬅️ 2. Obtén el estado de autenticación
+  const { isAuthenticated } = useAuth(); // 
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     const fetchInfocards = async () => {
       try {
-        // ⬇️ PASO 2: Usa apiClient para todas las peticiones
         const response = await apiClient.get('/api/infocards');
         setItems(response.data);
       } catch (error) {
@@ -25,7 +23,7 @@ const InfoCard = () => {
     fetchInfocards();
   }, []);
 
- const handleAddCard = async (formData) => { // ⬅️ Ahora recibe el objeto FormData
+ const handleAddCard = async (formData) => { 
     try {
       // apiClient detecta que le estás pasando FormData y automáticamente
       // configura la petición como 'multipart/form-data'. ¡Es así de fácil!
@@ -57,10 +55,8 @@ const InfoCard = () => {
 
  return (
     <div className="info-section container my-5">
-      <h2 className="text-center mb-4">Nuestros Servicios</h2>
+      <h2 className="text-center mb-4">Funcionarios</h2>
 
-      {/* ⬇️ 3. Renderizado Condicional del Formulario */}
-      {/* Esto se lee como: "SI isAuthenticated es true, ENTONCES renderiza InfoCardForm" */}
       {isAuthenticated && <InfoCardForm onAdd={handleAddCard} />}
 
       <InfoCardList items={items} onDelete={handleDelete} onEdit={handleEdit} />
