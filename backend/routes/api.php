@@ -8,11 +8,17 @@ use App\Http\Controllers\InfocardController;
 use App\Http\Controllers\Api\ProyectoController;
 use App\Http\Controllers\Api\EventoDeportivoController;
 use App\Http\Controllers\Api\InscripcionController;
+use App\Http\Controllers\Api\NoticiaCulturalController;
 /*
 |--------------------------------------------------------------------------
 | Rutas Públicas (no requieren autenticación)
 |--------------------------------------------------------------------------
 */
+
+Route::apiResource('noticias-culturales', NoticiaCulturalController::class)
+     ->only(['index', 'show'])
+     ->parameters(['noticias-culturales' => 'noticias_culturale']);
+
 // Rutas PÚBLICAS para inscripciones a eventos deportivos
 Route::post('/inscripciones', [InscripcionController::class, 'store']);
 
@@ -47,6 +53,9 @@ Route::get('/test', function () {
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    // Rutas PROTEGIDAS para Noticias Culturales
+     Route::apiResource('noticias-culturales', NoticiaCulturalController::class)->except(['index', 'show'])
+      ->parameters(['noticias-culturales' => 'noticias_culturale']);
     // Rutas PROTEGIDAS para inscripciones a eventos deportivos
         Route::get('/admin/inscripciones', [App\Http\Controllers\Api\InscripcionController::class, 'index']);
 

@@ -13,6 +13,7 @@ import ObrasPublicas from './ObrasPublicas';
 import ProyectoDetalle from './ProyectoDetalle';
 import EventoDetalle from './EventoDetalle';
 import Deportes from './Deportes';
+import Cultura from './Cultura';
 import NavBarComponent from './navBar';
 import Footer from './Footer';
 
@@ -21,6 +22,7 @@ import Footer from './Footer';
 import AdminProyectos from './AdminProyectos'; 
 import AdminEventos from './AdminEventos'; 
 import AdminInscripciones from './AdminInscripciones'; 
+import AdminCultura from './AdminCultura';
 
 // --- Contexto de Autenticación ---
 import { AuthProvider, useAuth } from './AuthContext';
@@ -41,6 +43,8 @@ const AppRoutes = () => {
       <Route path="/proyectos/:id" element={<ProyectoDetalle />} />
       <Route path="/deportes" element={<Deportes />} />
       <Route path="/deportes/:id" element={<EventoDetalle />} />
+      <Route path="/cultura" element={<Cultura />} />
+       {/* <Route path="/cultura/:id" element={<NoticiaDetalle />} /> */}
     
       {/* --- Rutas de Administración (Protegidas) --- */}
       <Route 
@@ -57,8 +61,13 @@ const AppRoutes = () => {
         path="/admin/inscripciones" 
         element={isAuthenticated ? <AdminInscripciones /> : <Navigate to="/login" />} 
       />
+      <Route 
+        path="/admin/cultura" 
+        element={isAuthenticated ? <AdminCultura /> : <Navigate to="/login" />} 
+      />
 
     </Routes>
+      
   );
 }
 

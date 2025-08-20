@@ -2,7 +2,6 @@
 // app/Http/Controllers/Api/ProyectoController.php
 
 namespace App\Http\Controllers\Api;
-
 use App\Http\Controllers\Controller;
 use App\Models\Proyecto;
 use Illuminate\Http\Request;
