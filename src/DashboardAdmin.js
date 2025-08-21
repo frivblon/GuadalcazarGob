@@ -35,6 +35,12 @@ const AdminDashboard = () => {
             path: "/info-card",
             icon: "fas fa-users",
             description: "Agrega InfoCards a la seccion de Inicio."
+        },
+         {
+            title: "Desarrollo Social",
+            path: "/admin/programas-sociales",
+            icon: "fas fa-users",
+            description: "Administra los programas sociales y sus detalles."
         }
         // Puedes agregar más secciones aquí en el futuro
     ];
